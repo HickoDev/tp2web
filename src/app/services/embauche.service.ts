@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Personne } from '../model/personne.model';
 
 @Injectable({
@@ -8,7 +9,7 @@ export class EmbaucheService {
 
   private embauches: Personne[] = [];
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   getEmbauches(): Personne[] {
     return this.embauches;
@@ -22,25 +23,38 @@ export class EmbaucheService {
     const alreadyHired = this.embauches.find(p => p.id === personne.id);
     
     if (alreadyHired) {
-      console.warn(`${personne.firstname} est déjà embauché(e)`);
+      this.toastr.error(
+        `${personne.firstname} ${personne.name} est déjà embauché(e)`,
+        'CV Déjà Embauché'
+      );
       return false;
     }
-    
+
     this.embauches.push(personne);
-    console.log(`${personne.firstname} a été embauché(e)`);
+    this.toastr.success(
+      `${personne.firstname} ${personne.name} a été embauché(e) avec succès!`,
+      'Embauche Réussie'
+    );
     return true;
   }
 
   removeEmbauche(id: number): boolean {
+    const personne = this.embauches.find(p => p.id === id);
     const index = this.embauches.findIndex(p => p.id === id);
     
     if (index > -1) {
       this.embauches.splice(index, 1);
-      console.log(`Embauche supprimée pour l'ID: ${id}`);
+      this.toastr.info(
+        `${personne?.firstname} ${personne?.name} a été retiré(e) de la liste des embauchés`,
+        'CV Retiré'
+      );
       return true;
     }
     
-    console.warn(`Aucun embauche trouvé pour l'ID: ${id}`);
+    this.toastr.warning(
+      'CV non trouvé dans la liste des embauchés',
+      'Erreur'
+    );
     return false;
   }
 
@@ -54,6 +68,6 @@ export class EmbaucheService {
 
   clearAllEmbauches(): void {
     this.embauches = [];
-    console.log('Tous les embauches ont été supprimés');
+    this.toastr.info('Tous les embauchés ont été supprimés', 'Suppression');
   }
 }
