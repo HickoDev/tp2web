@@ -1,0 +1,47 @@
+<div *ngIf="personne" class="col-md-12 col-sm-6">
+    <div class="card-container">
+       <div class="card">
+           <div class="front">
+               <div class="cover">
+                   <img src="assets/images/rotating_card_thumb2.png">
+               </div>
+               <div class="user">
+                   <img class="img-circle" [src]="personne.path">
+               </div>
+               <div class="content">
+                   <div class="main">
+                       <h3 class="name">{{personne.name}} {{personne.firstname}}</h3>
+                       <p class="profession">{{personne.job}}</p>
+                       <p class="text-center">Age: {{personne.age}}</p>
+                       <p class="text-center">CIN: {{personne.cin}}</p>
+                   </div>
+                   <div class="footer">
+                       <i class="fa fa-mail-forward"></i> Auto Rotation
+                   </div>
+               </div>
+           </div> <!-- end front panel -->
+           <div class="back">
+               <div class="header">
+              
+               </div>
+               <div class="content">
+                   <div class="main">
+                      
+                   </div>
+               </div>
+               <div class="footer">
+                   <div class="social-links text-center">
+                       <a href="https://creative-tim.com" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
+                       <a href="https://creative-tim.com" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
+                       <a href="https://creative-tim.com" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
+                   </div>
+               </div>
+           </div> <!-- end back panel -->
+       </div> <!-- end card -->
+   </div> <!-- end card-container -->
+</div>
+<div *ngIf="!personne" class="col-md-12 col-sm-6">
+    <div class="alert alert-info">
+        Please select a person to see the details.
+    </div>
+</div>

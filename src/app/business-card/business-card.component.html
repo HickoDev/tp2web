@@ -1,0 +1,91 @@
+<div class="container-fluid" style="margin-top: 40px">
+  <h2 class="text-center mb-4">Two Way Binding</h2>
+
+  <div
+    class="row"
+    style="background: #f4f5f7; padding: 30px; margin-top: 20px"
+  >
+    <!-- 🪪 LEFT: business card -->
+    <div class="col-md-6">
+      <div class="card-container">
+        <div class="card">
+          <div class="front">
+            <div class="cover">
+              <img [src]="profile.imageCover" />
+            </div>
+            <div class="user">
+              <img class="img-circle" [src]="profile.imageProfile" />
+            </div>
+            <div class="content">
+              <div class="main">
+                <h3 class="name">
+                  {{ profile.prenom }} {{ profile.nom }}
+                </h3>
+                <p class="profession">{{ profile.job }}</p>
+
+                <p class="text-center">
+                  "{{ profile.citation }}"
+                </p>
+              </div>
+              <div class="footer">
+                <i class="fa fa-mail-forward"></i> Auto Rotation
+              </div>
+            </div>
+          </div>
+          <!-- end front -->
+
+          <div class="back">
+            <div class="header">
+              <h5 class="motto">
+                "{{ profile.motto }}"
+              </h5>
+            </div>
+            <div class="content">
+              <div class="main">
+                <h4 class="text-center">Job Description</h4>
+                <p class="text-center">
+                  {{ profile.description }}
+                </p>
+
+                <div class="stats-container">
+                  <div class="stats">
+                    <h4>{{ profile.followers }}</h4>
+                    <p>Followers</p>
+                  </div>
+                  <div class="stats">
+                    <h4>{{ profile.following }}</h4>
+                    <p>Following</p>
+                  </div>
+                  <div class="stats">
+                    <h4>{{ profile.projects }}</h4>
+                    <p>Projects</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="footer">
+              <div class="social-links text-center">
+                <a href="#" class="facebook"
+                  ><i class="fa fa-facebook fa-fw"></i
+                ></a>
+                <a href="#" class="google"
+                  ><i class="fa fa-google-plus fa-fw"></i
+                ></a>
+                <a href="#" class="twitter"
+                  ><i class="fa fa-twitter fa-fw"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <!-- end back -->
+        </div>
+      </div>
+    </div> <!--  FIN de la colonne gauche -->
+
+    <!--  RIGHT: form -->
+    <div class="col-md-6">
+      <h2 class="text-center">Edit Profile</h2>
+      <app-user-profile [profile]="profile"></app-user-profile>
+    </div> <!--  FIN colonne droite -->
+  </div> <!-- row -->
+</div> <!-- container -->

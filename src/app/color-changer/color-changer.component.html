@@ -1,0 +1,19 @@
+
+<div
+  class="color-box"
+  [style.backgroundColor]="colorInput.value || defaultColor">
+  Couleur actuelle : {{ colorInput.value  || defaultColor }}     
+</div>
+
+<br>
+
+<!-- Input avec variable de template -->
+<input
+  #colorInput
+  (change)="0"
+  type="text"
+  placeholder="Ex: red, blue, green, #ff0000">
+
+<button (click)="colorInput.value = ''">
+  Reset
+</button>

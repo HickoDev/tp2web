@@ -1,0 +1,18 @@
+.result-box {
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.box-blue {
+  background-color: #e2f4ff;
+}
+
+.box-green {
+  background-color: #dff5df;
+}
+
+.box-red {
+  background-color: #f9d7d7;
+}
