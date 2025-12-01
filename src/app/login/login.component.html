@@ -1,0 +1,52 @@
+<div class="container mt-5">
+
+  <h2 class="mb-4">Authentification</h2>
+
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="w-75">
+
+    <!-- Email -->
+<div class="form-group mb-3">
+  <label>Email :</label>
+  <input type="email"
+         class="form-control form-control-lg"
+         name="email"
+         [(ngModel)]="email"
+         required
+         email
+         #emailCtrl="ngModel"
+         [ngClass]="{'is-invalid': emailCtrl.invalid && emailCtrl.touched}">
+  
+  <!-- MESSAGE D'ERREUR -->
+  <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-danger mt-1">
+    ❌ Email invalide.
+  </div>
+</div>
+
+    <!-- Password -->
+    <div class="form-group mb-3">
+      <label>Password :</label>
+      <input type="password"
+             class="form-control form-control-lg"
+             name="password"
+             [(ngModel)]="password"
+             required minlength="4"
+             #passCtrl="ngModel"
+             [ngClass]="{'is-invalid': passCtrl.invalid && passCtrl.touched}">
+      <div class="invalid-feedback">
+        Le mot de passe doit avoir au moins 4 caractères.
+      </div>
+    </div>
+
+    <!-- Bouton -->
+    <button type="submit"
+            class="btn btn-success btn-lg"
+            [disabled]="loginForm.invalid">
+      Login
+    </button>
+    <div *ngIf="loginForm.invalid && loginForm.touched" class="alert alert-danger">
+        ⚠️ Veuillez corriger les erreurs du formulaire avant de continuer.
+    </div>
+
+
+  </form>
+</div>

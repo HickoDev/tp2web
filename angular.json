@@ -32,7 +32,9 @@
               "src/styles.css",
               "src/assets/css/rotating-card.css"
             ],
-            "scripts": []
+            "scripts": [
+	      "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+	    ]
           },
           "configurations": {
             "production": {
@@ -99,3 +101,4 @@
     }
   }
 }
+
