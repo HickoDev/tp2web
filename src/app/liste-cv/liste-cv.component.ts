@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ItemCvComponent } from '../item-cv/item-cv.component';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Personne } from '../model/personne.model';
+import { ItemCvComponent } from '../item-cv/item-cv.component';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-liste-cv',
   imports: [ItemCvComponent, CommonModule],
@@ -9,13 +10,12 @@ import { Personne } from '../model/personne.model';
   styleUrl: './liste-cv.component.css'
 })
 export class ListeCvComponent {
+  
   @Input() personnes: Personne[] = [];
+  
   @Output() selectedPersonne = new EventEmitter<Personne>();
 
-  ngOnInit() {
-    
-  }
-selectPersonne(selectedPersonne: Personne) {
-    this.selectedPersonne.emit(selectedPersonne);
+  selectPersonne(personne: Personne) {
+    this.selectedPersonne.emit(personne);
   }
 }

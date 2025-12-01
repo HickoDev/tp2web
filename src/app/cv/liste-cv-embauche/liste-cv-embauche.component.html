@@ -1,0 +1,23 @@
+<div class="liste-embauche">
+  <h2>CVs Embauchés</h2>
+  
+  <div *ngIf="embauches.length === 0" class="no-data">
+    <p>Aucun CV embauché pour le moment</p>
+  </div>
+
+  <ol class="list-group" *ngIf="embauches.length > 0">
+    <li class="list-group-item" *ngFor="let personne of embauches" (click)="selectEmbauche(personne)">
+      <div class="embauche-item">
+        <img [src]="personne.path" [alt]="personne.firstname" class="embauche-image">
+        <div class="embauche-info">
+          <h4>{{ personne.firstname }} {{ personne.name }}</h4>
+          <p class="job">{{ personne.job }}</p>
+          <p class="age">Âge: {{ personne.age }} ans</p>
+        </div>
+        <button (click)="removeFromHired(personne); $event.stopPropagation()" class="btn-remove">
+          ✕ Retirer
+        </button>
+      </div>
+    </li>
+  </ol>
+</div>

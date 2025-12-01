@@ -1,11 +1,21 @@
 <div class="row">
-    <div class="col-md-6   col-sm-3">
+    <div class="col-md-4 col-sm-6">
         <app-liste-cv 
             [personnes]="personnes"
             (selectedPersonne)="showPersonneDetails($event)">
         </app-liste-cv>
     </div>
-    <div class="col-md-6   col-sm-3">
-        <app-detail-cv [personne]="selectedPersonne"></app-detail-cv>
+    <div class="col-md-4 col-sm-6">
+        <app-detail-cv 
+            [personne]="selectedPersonne"
+            (embauchePersonne)="embaucherPersonne($event)">
+        </app-detail-cv>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <app-liste-cv-embauche 
+            [embauches]="embauches"
+            (selectedEmbauche)="showPersonneDetails($event)"
+            (removeEmbauche)="removeFromHired($event)">
+        </app-liste-cv-embauche>
     </div> 
 </div>
