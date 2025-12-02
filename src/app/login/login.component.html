@@ -5,23 +5,24 @@
   <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="w-75">
 
     <!-- Email -->
-<div class="form-group mb-3">
-  <label>Email :</label>
-  <input type="email"
-         class="form-control form-control-lg"
-         name="email"
-         [(ngModel)]="email"
-         required
-         email
-         #emailCtrl="ngModel"
-         [ngClass]="{'is-invalid': emailCtrl.invalid && emailCtrl.touched}">
-  
-  <!-- MESSAGE D'ERREUR -->
-@if (emailCtrl.invalid && emailCtrl.touched) {
-  <div class="text-danger mt-1">
-    ❌ Email invalide.
-  </div>
-}
+    <div class="form-group mb-3">
+      <label>Email :</label>
+      <input type="email"
+             class="form-control form-control-lg"
+             name="email"
+             [(ngModel)]="email"
+             required
+             email
+             #emailCtrl="ngModel"
+             [ngClass]="{'is-invalid': emailCtrl.invalid && emailCtrl.touched}">
+
+      <!-- MESSAGE D'ERREUR -->
+      @if (emailCtrl.invalid && emailCtrl.touched) {
+        <div class="text-danger mt-1">
+          ❌ Email invalide.
+        </div>
+      }
+    </div> <!-- 🔥 IMPORTANT : fermeture du groupe email -->
 
     <!-- Password -->
     <div class="form-group mb-3">
@@ -33,9 +34,12 @@
              required minlength="4"
              #passCtrl="ngModel"
              [ngClass]="{'is-invalid': passCtrl.invalid && passCtrl.touched}">
-      <div class="invalid-feedback">
-        Le mot de passe doit avoir au moins 4 caractères.
-      </div>
+
+      @if (passCtrl.invalid && passCtrl.touched) {
+        <div class="text-danger mt-1">
+          ❌ Le mot de passe doit avoir au moins 4 caractères.
+        </div>
+      }
     </div>
 
     <!-- Bouton -->
@@ -44,10 +48,14 @@
             [disabled]="loginForm.invalid">
       Login
     </button>
+
+    <!-- MESSAGE GLOBAL -->
     @if (loginForm.invalid && loginForm.touched) {
-    <div class="alert alert-danger">
-      ⚠️ Veuillez corriger les erreurs du formulaire avant de continuer.
-    </div>
+      <div class="alert alert-danger mt-3">
+        ⚠️ Veuillez corriger les erreurs du formulaire avant de continuer.
+      </div>
     }
+
   </form>
+
 </div>
