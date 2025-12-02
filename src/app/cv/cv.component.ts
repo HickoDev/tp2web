@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { DetailCvComponent } from '../detail-cv/detail-cv.component';
+import { CvCardComponent } from '../cv-card/cv-card.component';
 import { ListeCvComponent } from '../liste-cv/liste-cv.component';
 import { ListeCvEmbaucheComponent } from '../cv/liste-cv-embauche/liste-cv-embauche.component';
 import { Personne } from '../model/personne.model';
@@ -9,7 +9,7 @@ import { EmbaucheService } from '../services/embauche.service';
 
 @Component({
   selector: 'app-cv',
-  imports: [DetailCvComponent, ListeCvComponent, ListeCvEmbaucheComponent],
+  imports: [CvCardComponent, ListeCvComponent, ListeCvEmbaucheComponent],
   templateUrl: './cv.component.html',
   styleUrl: './cv.component.css'
 })

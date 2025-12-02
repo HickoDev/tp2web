@@ -1,0 +1,78 @@
+@import '../../assets/css/rotating-card.css';
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  background: transparent;
+  font-size: 0.9rem;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0 1rem;
+}
+
+.btn-info {
+  border-color: #17a2b8;
+  color: #17a2b8;
+}
+
+.btn-info:hover {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-dark {
+  border-color: #343a40;
+  color: #343a40;
+}
+
+.btn-dark:hover {
+  background: #343a40;
+  color: white;
+}
+
+.btn i {
+  margin-right: 0.3rem;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.stats {
+  text-align: center;
+}
+
+.stats h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #667eea;
+}
+
+.stats p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.alert {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  color: #666;
+}
