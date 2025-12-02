@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CvCardComponent } from '../cv-card/cv-card.component';
 import { ListeCvComponent } from '../liste-cv/liste-cv.component';
@@ -18,11 +18,9 @@ export class CvComponent implements OnInit {
   selectedPersonne: Personne | null = null;
   embauches: Personne[] = [];
 
-  constructor(
-    private cvService: CvService,
-    private embaucheService: EmbaucheService,
-    private toastr: ToastrService
-  ) { }
+  private cvService = inject(CvService);
+  private embaucheService = inject(EmbaucheService);
+  private toastr = inject(ToastrService);
 
 ngOnInit(): void {
   this.cvService.getCvs().subscribe({

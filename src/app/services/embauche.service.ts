@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Personne } from '../model/personne.model';
 
@@ -9,7 +9,7 @@ export class EmbaucheService {
 
   private embauches: Personne[] = [];
 
-  constructor(private toastr: ToastrService) { }
+  private toastr = inject(ToastrService);
 
   getEmbauches(): Personne[] {
     return this.embauches;
