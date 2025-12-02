@@ -1,4 +1,5 @@
-<div class="detail-page" *ngIf="personne">
+@if (personne) {
+<div class="detail-page">
   <div class="container">
     <div class="detail-header">
       <h1>CV {{ personne.firstname }} {{ personne.name }}</h1>
@@ -64,10 +65,11 @@
     </div>
   </div>
 </div>
-
-<div *ngIf="!personne" class="not-found">
+} @else {
+<div class="not-found">
     <div class="alert alert-warning">
         <h2>CV not found!</h2>
         <button routerLink="/cv" class="btn btn-primary">Back to CV List</button>
     </div>
 </div>
+}

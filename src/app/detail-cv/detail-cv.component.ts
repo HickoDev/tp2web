@@ -21,10 +21,8 @@ export class DetailCvComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Get the ID from route parameters
     const id = this.route.snapshot.params['id'];
     
-    // Fetch the CV data from service
     const cvData = this.cvService.getCvById(+id);
     
     if (cvData) {
@@ -43,7 +41,6 @@ export class DetailCvComponent implements OnInit {
   deleteCV(): void {
     if (this.personne && confirm(`Are you sure you want to delete ${this.personne.firstname} ${this.personne.name}?`)) {
       this.cvService.deleteCv(this.personne.id);
-      // Navigate back to CV list
       this.router.navigate(['/cv']);
     }
   }

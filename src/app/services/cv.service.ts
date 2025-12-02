@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
@@ -54,6 +54,14 @@ constructor(
 ) { }
   getCvs(): Observable<any[]> {
   return this.http.get<any[]>(this.API_URL).pipe(
+    tap((apiCvs) => {
+      // Store fetched CVs in service for getCvById to work
+      console.log('💾 Storing API CVs in service:', apiCvs.length);
+      this.cvs = apiCvs.map((cv, index) => ({
+        ...cv,
+        id: typeof cv.id === 'number' ? cv.id : (cv.cin || index + 1)
+      }));
+    }),
     catchError((error) => {
       console.error('Erreur lors de la récupération des CVs depuis l\'API:', error);
       

@@ -27,21 +27,38 @@ export class CvComponent implements OnInit {
 ngOnInit(): void {
   this.cvService.getCvs().subscribe({
     next: (cvData) => {
-      this.personnes = cvData.map(cv => 
-        new Personne(
-          cv.id,
+      console.log('📥 Raw API data:', cvData);
+      
+      this.personnes = cvData.map((cv, index) => {
+        // Handle different ID formats from API
+        let id: number;
+        
+        if (typeof cv.id === 'number') {
+          id = cv.id;
+        } else if (cv.id && typeof cv.id === 'object') {
+          // MongoDB ObjectId - use CIN instead or generate from index
+          id = cv.cin || (index + 1);
+        } else {
+          // No ID - generate from index
+          id = index + 1;
+        }
+        
+        return new Personne(
+          id,
           cv.firstname || cv.firstName || '',
           cv.name || cv.lastName || '',
           cv.age,
           cv.cin,
           cv.job,
           cv.picture || cv.path || ''
-        )
-      );
-      console.log('CVs chargés avec succès:', this.personnes.length, 'CVs');
+        );
+      });
+      
+      console.log('✅ CVs chargés avec succès:', this.personnes.length, 'CVs');
+      console.log('📋 Personnes array:', this.personnes);
     },
     error: (err) => {
-      console.error('Erreur lors du chargement des CVs:', err);
+      console.error('❌ Erreur lors du chargement des CVs:', err);
     }
   });
   
