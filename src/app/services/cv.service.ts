@@ -57,10 +57,11 @@ constructor(
     tap((apiCvs) => {
       // Store fetched CVs in service for getCvById to work
       console.log('💾 Storing API CVs in service:', apiCvs.length);
-      this.cvs = apiCvs.map((cv, index) => ({
-        ...cv,
-        id: typeof cv.id === 'number' ? cv.id : (cv.cin || index + 1)
-      }));
+      
+      // Only keep CVs that have a valid numeric id
+      this.cvs = apiCvs.filter(cv => typeof cv.id === 'number');
+      
+      console.log('Kept CVs with valid IDs:', this.cvs.length);
     }),
     catchError((error) => {
       console.error('Erreur lors de la récupération des CVs depuis l\'API:', error);

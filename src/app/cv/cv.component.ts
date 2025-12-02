@@ -27,30 +27,18 @@ ngOnInit(): void {
     next: (cvData) => {
       console.log('📥 Raw API data:', cvData);
       
-      this.personnes = cvData.map((cv, index) => {
-        // Handle different ID formats from API
-        let id: number;
-        
-        if (typeof cv.id === 'number') {
-          id = cv.id;
-        } else if (cv.id && typeof cv.id === 'object') {
-          // MongoDB ObjectId - use CIN instead or generate from index
-          id = cv.cin || (index + 1);
-        } else {
-          // No ID - generate from index
-          id = index + 1;
-        }
-        
-        return new Personne(
-          id,
+      // Filter and map only CVs with valid numeric IDs
+      this.personnes = cvData
+        .filter(cv => typeof cv.id === 'number')  // Only keep CVs with numeric ID
+        .map(cv => new Personne(
+          cv.id,
           cv.firstname || cv.firstName || '',
           cv.name || cv.lastName || '',
           cv.age,
           cv.cin,
           cv.job,
           cv.picture || cv.path || ''
-        );
-      });
+        ));
       
       console.log('✅ CVs chargés avec succès:', this.personnes.length, 'CVs');
       console.log('📋 Personnes array:', this.personnes);

@@ -24,8 +24,8 @@ export class CvCardComponent {
 
   goToDetails() {
     if (this.personne) {
-      console.log('🔍 Navigating to details for:', this.personne);
-      console.log('📌 ID being used:', this.personne.id);
+      console.log('Navigating to details for:', this.personne);
+      console.log('ID being used:', this.personne.id);
       this.router.navigate(['/cv', this.personne.id]);
     }
   }
