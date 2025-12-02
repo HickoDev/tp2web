@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Personne } from '../model/personne.model';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { CvService } from '../services/cv.service';
+import { EmbaucheService } from '../services/embauche.service';
 
 @Component({
   selector: 'app-cv-card',
@@ -11,20 +12,23 @@ import { Router } from '@angular/router';
   styleUrl: './cv-card.component.css'
 })
 export class CvCardComponent {
-  @Input() personne: Personne | null = null;
-  @Output() embauchePersonne = new EventEmitter<Personne>();
+  private cvService = inject(CvService);
+  private embaucheService = inject(EmbaucheService);
+  private router = inject(Router);
 
-  constructor(private router: Router) {}
+  personne = this.cvService.selectedPersonne;
 
   hireCV() {
-    if (this.personne) {
-      this.embauchePersonne.emit(this.personne);
+    const currentPersonne = this.personne();
+    if (currentPersonne) {
+      this.embaucheService.addEmbauche(currentPersonne);
     }
   }
 
   goToDetails() {
-    if (this.personne) {
-      this.router.navigate(['/cv', this.personne.id]);
+    const currentPersonne = this.personne();
+    if (currentPersonne) {
+      this.router.navigate(['/cv', currentPersonne.id]);
     }
   }
 }

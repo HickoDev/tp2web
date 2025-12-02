@@ -1,16 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Personne } from '../model/personne.model';
+import { Component, Input, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CvService, Personne } from '../services/cv.service';
 
 @Component({
   selector: 'app-item-cv',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './item-cv.component.html',
   styleUrls: ['./item-cv.component.css']
 })
 export class ItemCvComponent {
   @Input() personne!: Personne;
-  @Output() selectedPersonne = new EventEmitter<Personne>();
+  
+  private cvService = inject(CvService);
 
   selectPersonne() {
-    this.selectedPersonne.emit(this.personne);
+    this.cvService.selectPersonne(this.personne);
   }
 }

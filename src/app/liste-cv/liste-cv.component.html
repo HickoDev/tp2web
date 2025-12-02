@@ -1,7 +1,5 @@
 <ol class="list-group">
-    <app-item-cv 
-       *ngFor="let personne of personnes"
-       [personne]="personne"
-       (selectedPersonne)="selectPersonne($event)">
-    </app-item-cv>
+  @for (personne of personnes; track $index) {
+    <app-item-cv [personne]="personne"></app-item-cv>
+  }
 </ol>

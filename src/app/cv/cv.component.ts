@@ -1,74 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit, inject } from '@angular/core';
 import { CvCardComponent } from '../cv-card/cv-card.component';
 import { ListeCvComponent } from '../liste-cv/liste-cv.component';
-import { ListeCvEmbaucheComponent } from '../cv/liste-cv-embauche/liste-cv-embauche.component';
-import { Personne } from '../model/personne.model';
-import { CvService } from '../services/cv.service';
+import { ListeCvEmbaucheComponent } from './liste-cv-embauche/liste-cv-embauche.component';
+import { CvService, Personne } from '../services/cv.service';
 import { EmbaucheService } from '../services/embauche.service';
 
 @Component({
   selector: 'app-cv',
+  standalone: true,
   imports: [CvCardComponent, ListeCvComponent, ListeCvEmbaucheComponent],
   templateUrl: './cv.component.html',
   styleUrl: './cv.component.css'
 })
 export class CvComponent implements OnInit {
+
   personnes: Personne[] = [];
-  selectedPersonne: Personne | null = null;
   embauches: Personne[] = [];
 
-  constructor(
-    private cvService: CvService,
-    private embaucheService: EmbaucheService,
-    private toastr: ToastrService
-  ) { }
+  private cvService = inject(CvService);
+  private embaucheService = inject(EmbaucheService);
 
-ngOnInit(): void {
-  this.cvService.getCvs().subscribe({
-    next: (cvData) => {
-      this.personnes = cvData.map(cv => 
-        new Personne(
-          cv.id,
-          cv.firstname || cv.firstName || '',
-          cv.name || cv.lastName || '',
-          cv.age,
-          cv.cin,
-          cv.job,
-          cv.picture || cv.path || ''
-        )
-      );
-      console.log('CVs chargés avec succès:', this.personnes.length, 'CVs');
-    },
-    error: (err) => {
-      console.error('Erreur lors du chargement des CVs:', err);
-    }
-  });
-  
-  this.embauches = this.embaucheService.getEmbauches();
-}
-
-  showPersonneDetails(personne: Personne): void {
-    this.selectedPersonne = personne;
-  }
-
-  embaucherPersonne(personne: Personne): void {
-    const success = this.embaucheService.addEmbauche(personne);
+  ngOnInit(): void {
+    this.cvService.getCvs().subscribe({
+      next: (cvData) => {
+        this.personnes = cvData.map((cv: any) => ({
+          id: cv.id,
+          firstName: cv.firstname || cv.firstName || '',
+          lastName: cv.lastname || cv.lastName || '',
+          name: cv.name || cv.lastName || '',
+          age: cv.age,
+          cin: cv.cin,
+          job: cv.job,
+          path: cv.picture || cv.path || '',
+          description: cv.description || ''
+        }));
+        
+        console.log('CVs loaded:', this.personnes.length);
+      },
+      error: (err) => {
+        console.error('Error loading CVs:', err);
+      }
+    });
     
-    if (success) {
-      setTimeout(() => {
-        this.embauches = this.embaucheService.getEmbauches();
-      }, 0);
-    }
-  }
-
-  removeFromHired(personne: Personne): void {
-    const success = this.embaucheService.removeEmbauche(personne.id);
-    
-    if (success) {
-      setTimeout(() => {
-        this.embauches = this.embaucheService.getEmbauches();
-      }, 0);
-    }
+    this.embauches = this.embaucheService.getEmbauches();
   }
 }

@@ -1,26 +1,27 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Personne } from '../../model/personne.model';
+import { Personne,CvService } from '../../services/cv.service';
+import { EmbaucheService } from '../../services/embauche.service';
 
 @Component({
   selector: 'app-liste-cv-embauche',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './liste-cv-embauche.component.html',
   styleUrl: './liste-cv-embauche.component.css'
 })
 export class ListeCvEmbaucheComponent {
   
-  @Input() embauches: Personne[] = [];
-  
-  @Output() selectedEmbauche = new EventEmitter<Personne>();
-  
-  @Output() removeEmbauche = new EventEmitter<Personne>();
+  private embaucheService = inject(EmbaucheService);
+  private cvService = inject(CvService);
+
+  embauches = this.embaucheService.embauches;
 
   selectEmbauche(personne: Personne) {
-    this.selectedEmbauche.emit(personne);
+    this.cvService.selectPersonne(personne);
   }
 
   removeFromHired(personne: Personne) {
-    this.removeEmbauche.emit(personne);
+    this.embaucheService.removeEmbauche(personne);
   }
 }

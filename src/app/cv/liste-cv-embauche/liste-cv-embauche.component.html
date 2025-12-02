@@ -1,23 +1,33 @@
 <div class="liste-embauche">
   <h2>CVs Embauchés</h2>
-  
-  <div *ngIf="embauches.length === 0" class="no-data">
-    <p>Aucun CV embauché pour le moment</p>
-  </div>
 
-  <ol class="list-group" *ngIf="embauches.length > 0">
-    <li class="list-group-item" *ngFor="let personne of embauches" (click)="selectEmbauche(personne)">
-      <div class="embauche-item">
-        <img [src]="personne.path" [alt]="personne.firstname" class="embauche-image">
-        <div class="embauche-info">
-          <h4>{{ personne.firstname }} {{ personne.name }}</h4>
-          <p class="job">{{ personne.job }}</p>
-          <p class="age">Âge: {{ personne.age }} ans</p>
-        </div>
-        <button (click)="removeFromHired(personne); $event.stopPropagation()" class="btn-remove">
-          ✕ Retirer
-        </button>
-      </div>
-    </li>
-  </ol>
+  <!-- FIX: Added () before .length -->
+  @if (embauches().length === 0) {
+    <div class="no-data">
+      <p>Aucun CV embauché pour le moment</p>
+    </div>
+  } @else {
+    <ol class="list-group">
+      <!-- Good practice: track by ID instead of $index if possible -->
+      @for (personne of embauches(); track personne.id) {
+        <li class="list-group-item" (click)="selectEmbauche(personne)">
+          <div class="embauche-item">
+            <!-- Ensure path property exists on your Personne object -->
+            <img [src]="personne.path || 'assets/default.png'" [alt]="personne.firstName" class="embauche-image">
+            <div class="embauche-info">
+              <!-- Check if your interface uses 'name' or 'lastName' -->
+              <h4>{{ personne.firstName }} {{ personne.name }}</h4>
+              <p class="job">{{ personne.job }}</p>
+              <p class="age">Âge: {{ personne.age }} ans</p>
+            </div>
+            
+            <!-- Stop propagation to prevent selecting the CV when deleting -->
+            <button (click)="removeFromHired(personne); $event.stopPropagation()" class="btn-remove">
+              ✕ Retirer
+            </button>
+          </div>
+        </li>
+      }
+    </ol>
+  }
 </div>
