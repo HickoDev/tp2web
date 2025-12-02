@@ -17,10 +17,11 @@
          [ngClass]="{'is-invalid': emailCtrl.invalid && emailCtrl.touched}">
   
   <!-- MESSAGE D'ERREUR -->
-  <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-danger mt-1">
+@if (emailCtrl.invalid && emailCtrl.touched) {
+  <div class="text-danger mt-1">
     ❌ Email invalide.
   </div>
-</div>
+}
 
     <!-- Password -->
     <div class="form-group mb-3">
@@ -43,10 +44,10 @@
             [disabled]="loginForm.invalid">
       Login
     </button>
-    <div *ngIf="loginForm.invalid && loginForm.touched" class="alert alert-danger">
-        ⚠️ Veuillez corriger les erreurs du formulaire avant de continuer.
+    @if (loginForm.invalid && loginForm.touched) {
+    <div class="alert alert-danger">
+      ⚠️ Veuillez corriger les erreurs du formulaire avant de continuer.
     </div>
-
-
+    }
   </form>
 </div>
