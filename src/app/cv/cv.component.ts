@@ -71,21 +71,20 @@ ngOnInit(): void {
 
   embaucherPersonne(personne: Personne): void {
     const success = this.embaucheService.addEmbauche(personne);
-    
+
     if (success) {
-      setTimeout(() => {
-        this.embauches = this.embaucheService.getEmbauches();
-      }, 0);
+      this.embauches = this.embaucheService.getEmbauches();
+
+      
     }
   }
 
   removeFromHired(personne: Personne): void {
     const success = this.embaucheService.removeEmbauche(personne.id);
-    
+
     if (success) {
-      setTimeout(() => {
-        this.embauches = this.embaucheService.getEmbauches();
-      }, 0);
+      this.embauches = this.embaucheService.getEmbauches();
+
     }
   }
 }
