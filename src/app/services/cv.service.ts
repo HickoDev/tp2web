@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
 export class CvService {
-
+private API_URL = 'https://apilb.tridevs.net/api/personnes';
   private cvs = [
     {
       id: 1,
@@ -45,10 +48,26 @@ export class CvService {
     }
   ];
 
-  constructor() { }
-  getCvs() {
-    return this.cvs;
-  }
+constructor(
+  private http: HttpClient,
+  private toastr: ToastrService
+) { }
+  getCvs(): Observable<any[]> {
+  return this.http.get<any[]>(this.API_URL).pipe(
+    catchError((error) => {
+      console.error('Erreur lors de la récupération des CVs depuis l\'API:', error);
+      
+      this.toastr.error(
+        'Impossible de récupérer les CVs depuis le serveur. Affichage des données locales.',
+        'Erreur de connexion',
+        { timeOut: 5000 }
+      );
+      
+      return of(this.cvs);
+    })
+  );
+}
+
 
   getCvById(id: number) {
     return this.cvs.find(cv => cv.id === id);

@@ -24,14 +24,29 @@ export class CvComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  ngOnInit(): void {
-    const cvData = this.cvService.getCvs();
-    this.personnes = cvData.map(cv => 
-      new Personne(cv.id, cv.name, cv.firstName, cv.age, cv.cin, cv.job, cv.path)
-    );
-    
-    this.embauches = this.embaucheService.getEmbauches();
-  }
+ngOnInit(): void {
+  this.cvService.getCvs().subscribe({
+    next: (cvData) => {
+      this.personnes = cvData.map(cv => 
+        new Personne(
+          cv.id,
+          cv.firstname || cv.firstName || '',
+          cv.name || cv.lastName || '',
+          cv.age,
+          cv.cin,
+          cv.job,
+          cv.picture || cv.path || ''
+        )
+      );
+      console.log('CVs chargés avec succès:', this.personnes.length, 'CVs');
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement des CVs:', err);
+    }
+  });
+  
+  this.embauches = this.embaucheService.getEmbauches();
+}
 
   showPersonneDetails(personne: Personne): void {
     this.selectedPersonne = personne;
