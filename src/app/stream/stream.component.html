@@ -1,0 +1,11 @@
+<div class="card p-3 mb-3">
+  <h3>Image Stream</h3>
+  
+    <img 
+      [src]="imageStream$ | async" 
+      [style.width.px]="size" 
+      [style.height.px]="size"
+      alt="Streamed Image"
+      class="border rounded"
+    >
+</div>
